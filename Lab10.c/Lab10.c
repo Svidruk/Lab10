@@ -7,18 +7,18 @@ int main()
 	FILE* pfInputFile = fopen("InputData.txt", "r");
 	FILE* pfOutputFile = fopen("OutputData.txt", "w");
 	pStudents = ReadStudents(pfInputFile);
-	PrintStudents(pfOutputFile, pStudents);
+	CheckStudents(pfOutputFile, pStudents);
  
 	struct Slist* pFirstStudent = pStudents;
 
-	while (CheckStudentsMarks(pStudents))DeleteFstStudent(&pStudents);
+	while (CheckStudentsMarks(pStudents))DeleteFirstStudent(&pStudents);
 	pFirstStudent = pStudents;
 	do {
-		while (pFirstStudent->Next && CheckStudentsMarks(pFirstStudent->Next))DeleteNextStudent(pFirstStudent);
-	} while ((pFirstStudent = pFirstStudent->Next) && pFirstStudent->Next);
+		while (pFirstStudent->pNext && CheckStudentsMarks(pFirstStudent->pNext))DeleteNextStudent(pFirstStudent);
+	} while ((pFirstStudent = pFirstStudent->pNext) && pFirstStudent->pNext);
 
 	fprintf(pfOutputFile, "\nstudents after deleting and sorting\n");
-	PrintStudents(pfOutputFile, pStudents);
+	CheckStudents(pfOutputFile, pStudents);
 
 	DeleteStudents(&pStudents);
 
