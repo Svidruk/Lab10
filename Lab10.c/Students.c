@@ -1,55 +1,55 @@
 #include "Students.h"
 
-struct Slist* ReadStudents(FILE* Inp) 
+struct Slist* ReadStudents(FILE* pfInputFile) 
 {
-	struct Slist* FirstStudent = malloc(sizeof(struct Slist));
-	if (fscanf(Inp, "%s %s %d %d %d", FirstStudent->sSurname, FirstStudent->sName,
-		&(FirstStudent->Birthday.nDay), &(FirstStudent->Birthday.nMonth),
-		&(FirstStudent->Birthday.nYear)) < 0)
+	struct Slist* pFirstStudent = malloc(sizeof(struct Slist));
+	if (fscanf(pfInputFile, "%s %s %d %d %d", pFirstStudent->sSurname, pFirstStudent->sName,
+		&(pFirstStudent->Birthday.nDay), &(pFirstStudent->Birthday.nMonth),
+		&(pFirstStudent->Birthday.nYear)) < 0)
 		return NULL;
 
-	double dbAverage = 0;
+	double dbAvg = 0;
 	for (int i = 0; i < NUMBER_OF_STUDENTS; i++) 
 	{
-		fscanf(Inp, "%d", &(FirstStudent->nMarks[i]));
-		dbAverage += (FirstStudent->nMarks[i]);
+		fscanf(pfInputFile, "%d", &(pFirstStudent->nMarks[i]));
+		dbAvg += (pFirstStudent->nMarks[i]);
 	}
-	dbAverage /= NUMBER_OF_STUDENTS;
-	FirstStudent->dbMidMark = dbAverage;
-	FirstStudent->Next = NULL;
+	dbAvg /= NUMBER_OF_STUDENTS;
+	pFirstStudent->dbMidMark = dbAvg;
+	pFirstStudent->Next = NULL;
 
-	struct Slist* NewElement;
+	struct Slist* pNewElement;
 
-	while (!feof(Inp)) 
+	while (!feof(pfInputFile)) 
 	{
-		NewElement = malloc(sizeof(struct Slist));
-		if (fscanf(Inp, "%s %s %d %d %d", NewElement->sSurname, NewElement->sName,
-			&(NewElement->Birthday.nDay), &(NewElement->Birthday.nMonth),
-			&(NewElement->Birthday.nYear)) > 0)
+		pNewElement = malloc(sizeof(struct Slist));
+		if (fscanf(pfInputFile, "%s %s %d %d %d", pNewElement->sSurname, pNewElement->sName,
+			&(pNewElement->Birthday.nDay), &(pNewElement->Birthday.nMonth),
+			&(pNewElement->Birthday.nYear)) > 0)
 		{
 			double dbAverage = 0;
 			for (int i = 0; i < NUMBER_OF_STUDENTS; i++)
 			{
-				fscanf(Inp, "%d", &(NewElement->nMarks[i]));
-				dbAverage += (NewElement->nMarks[i]);
+				fscanf(pfInputFile, "%d", &(pNewElement->nMarks[i]));
+				dbAverage += (pNewElement->nMarks[i]);
 			}
 			dbAverage /= NUMBER_OF_STUDENTS;
-			NewElement->dbMidMark = dbAverage;
+			pNewElement->dbMidMark = dbAverage;
 
-			AddStudent(&FirstStudent, NewElement);
+			AddStudent(&pFirstStudent, pNewElement);
 		}
 		else 
 		{
-			free(NewElement);
+			free(pNewElement);
 		}
 	}
-	return FirstStudent;
+	return pFirstStudent;
 }
 
-int CheckStudentsMarks(struct Slist* student) {
+int CheckStudentsMarks(struct Slist* pStudent) {
 	int k = 0;
 	for (int i = 0; i < NUMBER_OF_STUDENTS; i++) {
-		if (student->nMarks[i] == 2) {
+		if (pStudent->nMarks[i] == 2) {
 			k++;
 		}
 		if (k == 2)
@@ -58,23 +58,23 @@ int CheckStudentsMarks(struct Slist* student) {
 	return 0;
 }
 
-void PrintStudent(FILE* Out, struct Slist* SP) {
+void PrintStudent(FILE* pfOutputFile, struct Slist* SP) {
 
-	fprintf(Out, "\t %10s| %10s| %5d| %5d| %5d|", SP->sSurname, SP->sName,
+	fprintf(pfOutputFile, "\t %10s| %10s| %5d| %5d| %5d|", SP->sSurname, SP->sName,
 		(SP->Birthday.nDay), (SP->Birthday.nMonth),
 		(SP->Birthday.nYear));
 
 	for (int i = 0; i < NUMBER_OF_STUDENTS; i++) {
-		fprintf(Out, " %4d ", (SP->nMarks[i]));
+		fprintf(pfOutputFile, " %4d ", (SP->nMarks[i]));
 	}
-	fprintf(Out, " |%5.2lf|\n", SP->dbMidMark);
+	fprintf(pfOutputFile, " |%5.2lf|\n", SP->dbMidMark);
 }
 
-void PrintStudents(FILE* Out, struct Slist* student) {
-	if (student)
+void PrintStudents(FILE* pfOutputFile, struct Slist* pStudent) {
+	if (pStudent)
 		do {
-			PrintStudent(Out, student);
-		} while (student = student->Next);
+			PrintStudent(pfOutputFile, pStudent);
+		} while (pStudent = pStudent->Next);
 }
 
 void AddStudent(struct Slist** pStudent, struct Slist* pElement) {
@@ -94,10 +94,10 @@ void AddStudent(struct Slist** pStudent, struct Slist* pElement) {
 	student->Next = pElement;
 }
 
-void DeleteNextStudent(struct Slist* list)
+void DeleteNextStudent(struct Slist* pList)
 {
-	struct Slist* pTemp = list->Next;
-	list->Next = pTemp->Next;
+	struct Slist* pTemp = pList->Next;
+	pList->Next = pTemp->Next;
 	free(pTemp);
 }
 
@@ -107,9 +107,9 @@ void DeleteFirstStudent(struct Slist** pFirstStudent) {
 	*pFirstStudent = pSecond;
 }
 
-void DeleteStudents(struct Slist** student) 
+void DeleteStudents(struct Slist** pStudent) 
 {
 	do {
-		DeleteFirstStudent(student);
-	} while (*student);
+		DeleteFirstStudent(pStudent);
+	} while (*pStudent);
 }

@@ -17,21 +17,21 @@ struct Slist {
 	struct Slist* Next;
 };
 
-void AddStudent(struct Slist** pstudent, struct Slist* Element); 
+void AddStudent(struct Slist** pStudent, struct Slist* pElement); 
 
-void DeleteNextStudent(struct Slist* student);            
+void DeleteNextStudent(struct Slist* pStudent);            
 
-void DeleteFirstStudent(struct Slist** FstStudent);
+void DeleteFirstStudent(struct Slist** pFirstStudent);
 
-void DeleteStudents(struct Slist** student);
+void DeleteStudents(struct Slist** pStudent);
 
-int CheckStudentsMarks(struct Slist* student);
+int CheckStudentsMarks(struct Slist* pStudent);
 
-struct Slist* ReadStudents(FILE* Inp);
+struct Slist* ReadStudents(FILE* pfInputFile);
 
-void PrintStudent(FILE* Out, struct Slist* SP);
+void PrintStudent(FILE* pfOutputFile, struct Slist* SP);
 
-void PrintStudents(FILE* Out, struct Slist* student);
+void PrintStudents(FILE* pfOutputFile, struct Slist* pStudent);
 
 
 #endif 

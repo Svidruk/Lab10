@@ -9,13 +9,13 @@ int main()
 	pStudents = ReadStudents(pfInputFile);
 	PrintStudents(pfOutputFile, pStudents);
  
-	struct Slist* FirstStudent = pStudents;
+	struct Slist* pFirstStudent = pStudents;
 
 	while (CheckStudentsMarks(pStudents))DeleteFstStudent(&pStudents);
-	FirstStudent = pStudents;
+	pFirstStudent = pStudents;
 	do {
-		while (FirstStudent->Next && CheckStudentsMarks(FirstStudent->Next))DeleteNextStudent(FirstStudent);
-	} while ((FirstStudent = FirstStudent->Next) && FirstStudent->Next);
+		while (pFirstStudent->Next && CheckStudentsMarks(pFirstStudent->Next))DeleteNextStudent(pFirstStudent);
+	} while ((pFirstStudent = pFirstStudent->Next) && pFirstStudent->Next);
 
 	fprintf(pfOutputFile, "\nstudents after deleting and sorting\n");
 	PrintStudents(pfOutputFile, pStudents);
