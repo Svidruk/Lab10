@@ -70,7 +70,7 @@ void PrintStudent(FILE* pfOutputFile, struct Slist* SP) {
 	fprintf(pfOutputFile, " |%5.2lf|\n", SP->dbAvgMark);
 }
 
-void CheckStudents(FILE* pfOutputFile, struct Slist* pStudent) {
+void OutputStudentsInFile(FILE* pfOutputFile, struct Slist* pStudent) {
 	if (pStudent)
 		do {
 			PrintStudent(pfOutputFile, pStudent);

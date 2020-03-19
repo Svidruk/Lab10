@@ -38,7 +38,7 @@ struct Slist* ReadStudents(FILE* pfInputFile);
 void PrintStudent(FILE* pfOutputFile, struct Slist* SP);
 
 //Виводить інформацію про кожного студента у списку у файл
-void CheckStudents(FILE* pfOutputFile, struct Slist* pStudent);
+void OutputStudentsInFile(FILE* pfOutputFile, struct Slist* pStudent);
 
 
 #endif 
